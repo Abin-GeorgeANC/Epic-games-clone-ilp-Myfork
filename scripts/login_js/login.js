@@ -10,29 +10,29 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 //Function to check if an email is already registered or not
-document
-  .getElementById("continue-link")
-  .addEventListener("click", function checkMail() {
-    let email = document.getElementById("email-field").value;
-    sessionStorage.setItem("email", email);
-    if (validateInput()) {
-      fetchSignInMethodsForEmail(auth, email)
-        .then((signInMethods) => {
-          if (signInMethods.length === 0) {
-            console.log(signInMethods);
-            console.log("Email is not registered.");
-            window.location.href = "../signup_page/signup.html";
-          } else {
-            console.log("Email is already registered.");
-            console.log("Sign-in methods:", signInMethods);
-            window.location.href = "login_password.html";
-          }
-        })
-        .catch((error) => {
-          console.error("Error checking email:", error);
-        });
-    }
-  });
+document.getElementById("continue-link").addEventListener("click", checkMail);
+
+function checkMail() {
+  let email = document.getElementById("email-field").value;
+  sessionStorage.setItem("email", email);
+  if (validateInput()) {
+    fetchSignInMethodsForEmail(auth, email)
+      .then((signInMethods) => {
+        if (signInMethods.length === 0) {
+          console.log(signInMethods);
+          console.log("Email is not registered.");
+          window.location.href = "../signup_page/signup.html";
+        } else {
+          console.log("Email is already registered.");
+          console.log("Sign-in methods:", signInMethods);
+          window.location.href = "login_password.html";
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking email:", error);
+      });
+  }
+}
 
 //function to validate email input field
 const validateInput = () => {
@@ -66,11 +66,24 @@ const validateInput = () => {
   }
 };
 
+//function to check if enter key is pressed
+
+const isEnterKeyPressed = (event) => {
+  if (event.key == "Enter") {
+    checkMail();
+  }
+};
+
 //funcion to check email format
 function isValidEmailFormat(email) {
   let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
+
+document.getElementById("email-field").addEventListener("keypress", (event) => {
+  console.log("hehehe");
+  isEnterKeyPressed(event);
+});
 
 document.getElementById("email-field").addEventListener("input", validateInput);
 
