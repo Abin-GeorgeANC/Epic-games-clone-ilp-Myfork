@@ -58,6 +58,19 @@ function togglePasswordVisibility() {
   }
 }
 
+//function to check if enter key is pressed
+const isEnterKeyPressed = (event) => {
+  if (event.key == "Enter") {
+    signIn();
+  }
+};
+
+document
+  .getElementById("password-field")
+  .addEventListener("keypress", (event) => {
+    isEnterKeyPressed(event);
+  });
+
 //function to animate password field placeholder text
 document
   .getElementById("password-field")

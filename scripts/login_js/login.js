@@ -67,7 +67,6 @@ const validateInput = () => {
 };
 
 //function to check if enter key is pressed
-
 const isEnterKeyPressed = (event) => {
   if (event.key == "Enter") {
     checkMail();

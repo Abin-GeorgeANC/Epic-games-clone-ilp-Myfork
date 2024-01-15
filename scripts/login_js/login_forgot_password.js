@@ -60,6 +60,19 @@ const validateInput = () => {
   }
 };
 
+//function to check if enter key is pressed
+const isEnterKeyPressed = (event) => {
+  if (event.key == "Enter") {
+    changePassWord();
+  }
+};
+
+document
+  .getElementById("email-field-forgot")
+  .addEventListener("keypress", (event) => {
+    isEnterKeyPressed(event);
+  });
+
 //funcion to check email format
 function isValidEmailFormat(email) {
   let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
